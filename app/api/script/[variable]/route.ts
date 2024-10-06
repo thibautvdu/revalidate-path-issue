@@ -7,17 +7,15 @@ export const revalidate = 30; // seconds
 // We'll prerender only the params from `generateStaticParams` at build time.
 // If a request comes in for a path that hasn't been generated,
 // Next.js will server-render the page on-demand.
-// export const dynamicParams = true; // or false, to 404 on unknown paths
-export const dynamic = "auto";
+export const dynamicParams = true; // or false, to 404 on unknown paths
 
-// export async function generateStaticParams() {
-//   const posts: Post[] = await fetch('https://api.vercel.app/blog').then((res) =>
-//     res.json()
-//   )
-//   return posts.map((post) => ({
-//     id: String(post.id),
-//   }))
-// }
+export async function generateStaticParams() {
+  return [
+    {
+      variable: "test",
+    },
+  ];
+}
 
 export async function GET(
   request: NextRequest,
