@@ -9,19 +9,25 @@ import { NextRequest, NextResponse } from "next/server";
 // Next.js will server-render the page on-demand.
 export const dynamicParams = true; // or false, to 404 on unknown paths
 
-export async function generateStaticParams() {
-  return [
-    // {
-    //   variable: "test",
-    // },
-  ];
-}
+// export async function generateStaticParams() {
+//   return [
+//     // {
+//     //   variable: "test",
+//     // },
+//   ];
+// }
 
 export async function GET(
   request: NextRequest,
   params: { params: { variable: string } }
 ): Promise<NextResponse> {
   console.log("Regenerating script with variable", params.params.variable);
+
+  await fetch("https://google.com", {
+    next: {
+      tags: ["test-tag"], // Invalidate with revalidateTag('blog') on-demand
+    },
+  });
 
   return new NextResponse(
     `hello variable ${params.params.variable} ; date: ${Date.now()}`
